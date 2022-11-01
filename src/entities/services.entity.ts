@@ -1,31 +1,28 @@
-import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  OneToOne,
+  JoinColumn,
+  ManyToOne,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
-import { Exclude } from "class-transformer";
-import { Schedules } from "./schedules.entity";
+import { Categories } from "./categories.entity";
+import { Description } from "./description.entity";
 
 @Entity()
-export class User {
+export class Services {
   @PrimaryColumn("uuid")
   readonly id: string;
 
   @Column()
-  name: string;
+  serviceName: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  @Exclude()
-  password: string;
-
-  @Column()
-  isPremium: boolean;
+  serviceOwner: string;
 
   @Column()
   isActive: boolean;
-
-  @Column({ default: false })
-  isOffering: boolean;
 
   @Column()
   createdAt: Date;
@@ -33,8 +30,14 @@ export class User {
   @Column()
   updatedAt: Date;
 
-  @OneToMany(() => Schedules, (schedules) => Schedules.user)
-  schedules: Schedules[];
+  @ManyToOne(() => Categories)
+  categories: Categories;
+
+  @OneToOne((type) => Description, {
+    eager: true,
+  })
+  @JoinColumn()
+  description: Description;
 
   constructor() {
     if (!this.id) {
