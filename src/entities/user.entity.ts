@@ -11,17 +11,17 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ length: 60, unique: true })
   email: string;
 
   @Column()
   @Exclude()
   password: string;
 
-  @Column()
+  @Column({ default: false })
   isPremium: boolean;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
   @Column({ default: false })
@@ -33,16 +33,12 @@ export class User {
   @Column()
   updatedAt: Date;
 
-  @OneToMany(() => Schedules, (schedules) => Schedules.user)
+  @OneToMany(() => Schedules, (schedules) => schedules.user)
   schedules: Schedules[];
 
   constructor() {
     if (!this.id) {
       this.id = uuid();
-    }
-
-    if (!this.isActive) {
-      this.isActive = true;
     }
 
     if (!this.createdAt) {

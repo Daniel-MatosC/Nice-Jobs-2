@@ -21,7 +21,7 @@ export class Services {
   @Column()
   serviceOwner: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
   @Column()
@@ -31,21 +31,17 @@ export class Services {
   updatedAt: Date;
 
   @ManyToOne(() => Categories)
-  categories: Categories;
+  categoryId: Categories;
 
   @OneToOne((type) => Description, {
     eager: true,
   })
   @JoinColumn()
-  description: Description;
+  descriptionId: Description;
 
   constructor() {
     if (!this.id) {
       this.id = uuid();
-    }
-
-    if (!this.isActive) {
-      this.isActive = true;
     }
 
     if (!this.createdAt) {
