@@ -31,13 +31,13 @@ export class Services {
   updatedAt: Date;
 
   @ManyToOne(() => Categories)
-  categoryId: Categories;
+  category: Categories;
 
   @OneToOne((type) => Description, {
     eager: true,
   })
   @JoinColumn()
-  descriptionId: Description;
+  description: Description;
 
   constructor() {
     if (!this.id) {
