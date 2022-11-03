@@ -33,7 +33,7 @@ export class User {
   @Column()
   updatedAt: Date;
 
-  @OneToMany(() => Schedules, (schedules) => Schedules.user)
+  @OneToMany(() => Schedules, (schedules) => schedules.user)
   schedules: Schedules[];
 
   constructor() {
