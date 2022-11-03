@@ -31,7 +31,7 @@ export class Services {
   updatedAt: Date;
 
   @ManyToOne(() => Categories)
-  categories: Categories;
+  category: Categories;
 
   @OneToOne((type) => Description, {
     eager: true,

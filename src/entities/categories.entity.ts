@@ -10,7 +10,7 @@ export class Categories {
   @Column()
   name: string;
 
-  @OneToMany(() => Services, (services) => services.categories)
+  @OneToMany(() => Services, (services) => services.category)
   services: Services[];
 
   constructor() {
