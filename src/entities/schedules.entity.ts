@@ -14,6 +14,9 @@ export class Schedules {
   @Column()
   hour: string;
 
+  @Column({ default: false })
+  isDone: boolean;
+
   @ManyToOne(() => User, { eager: true })
   user: User;
 
