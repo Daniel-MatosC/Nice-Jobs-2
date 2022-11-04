@@ -2,8 +2,9 @@ import AppDataSource from "../../data-source";
 
 import { Services } from "../../entities/services.entity";
 import { Description } from "../../entities/description.entity";
+import { Categories } from "../../entities/categories.entity";
 
-import { IServiceRequest, IService } from "../../interfaces/services";
+import { IServiceRequest, IDescription } from "../../interfaces/services";
 
 const createServiceService = async ({
   serviceName,
@@ -11,34 +12,39 @@ const createServiceService = async ({
   isActive,
   description,
   category,
-}: IServiceRequest) => {
+}: IServiceRequest): Promise<Services> => {
   const serviceRepository = AppDataSource.getRepository(Services);
 
   const descriptionRepository = AppDataSource.getRepository(Description);
 
-  const service = new Services();
-  service.serviceName = serviceName;
-  service.serviceOwner = serviceOwner;
-  service.isActive = isActive;
-  service.description = description;
-  service.category = category;
-  service.isActive = true;
-  service.createdAt = new Date();
-  service.updatedAt = new Date();
-  service.id;
+  const categoryRepository = AppDataSource.getRepository(Categories);
 
-  serviceRepository.create(service);
-  await serviceRepository.save(service);
+  const categories = await categoryRepository.find();
 
-  const serviceDescription = new Description();
-  serviceDescription.serviceDescription =
-    service.description.serviceDescription;
-  serviceDescription.serviceValue = service.description.serviceValue;
-  serviceDescription.atuationArea = service.description.atuationArea;
-  serviceDescription.id;
+  const categoryId = categories.find((e) => e.id === category);
 
-  descriptionRepository.create(serviceDescription);
+  const finalDescription = await descriptionRepository.findOneBy({
+    serviceDescription: description.serviceDescription,
+    serviceValue: description.serviceValue,
+    atuationArea: description.atuationArea,
+  });
+
+  const serviceDescription: IDescription =
+    descriptionRepository.create(description);
+
   await descriptionRepository.save(serviceDescription);
+
+  const service = serviceRepository.create({
+    serviceName,
+    serviceOwner,
+    isActive,
+    description: serviceDescription,
+    category: categoryId,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  await serviceRepository.save(service);
 
   return service;
 };

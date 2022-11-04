@@ -4,7 +4,11 @@ import AppDataSource from "../../data-source";
 const listServicesService = async () => {
   const serviceRepository = AppDataSource.getRepository(Services);
 
-  const services = serviceRepository.find();
+  const services = await serviceRepository.find({
+    relations: {
+      description: true,
+    },
+  });
 
   return services;
 };
