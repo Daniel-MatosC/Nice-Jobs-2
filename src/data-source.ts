@@ -7,8 +7,8 @@ const AppDataSource = new DataSource({
   ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false}: false,
   logging: true,
   synchronize: false,
-  entities:process.env.NODE_ENV === "production"? ["dist/src/entities/*.js"]: ["src/entities/*.ts"],
-  migrations:  process.env.NODE_ENV === "production" ? ["dist/src/migrations/*.js"]:["src/migrations/*.ts"],
+  entities:process.env.NODE_ENV === "production"? ["dist/entities/*.js"]: ["src/entities/*.ts"],
+  migrations:  process.env.NODE_ENV === "production" ? ["dist/migrations/*.js"]:["src/migrations/*.ts"],
 });
 
 export default AppDataSource;
