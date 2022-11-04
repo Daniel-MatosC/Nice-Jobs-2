@@ -5,6 +5,8 @@ import { Description } from "../../entities/description.entity";
 import { Categories } from "../../entities/categories.entity";
 
 import { IServiceRequest, IDescription } from "../../interfaces/services";
+import { AppError } from "../../errors/appError";
+
 
 const createServiceService = async ({
   serviceName,
@@ -19,15 +21,11 @@ const createServiceService = async ({
 
   const categoryRepository = AppDataSource.getRepository(Categories);
 
-  const categories = await categoryRepository.find();
+  const categoryId = await categoryRepository.findOne({ where: { id: category } });
 
-  const categoryId = categories.find((e) => e.id === category);
-
-  const finalDescription = await descriptionRepository.findOneBy({
-    serviceDescription: description.serviceDescription,
-    serviceValue: description.serviceValue,
-    atuationArea: description.atuationArea,
-  });
+  if(!categoryId) {
+    throw new AppError('Category not found');
+  }
 
   const serviceDescription: IDescription =
     descriptionRepository.create(description);

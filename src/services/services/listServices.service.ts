@@ -7,6 +7,7 @@ const listServicesService = async () => {
   const services = await serviceRepository.find({
     relations: {
       description: true,
+      category: true,
     },
   });
 
