@@ -14,6 +14,5 @@ app.use("/testando", (req, res) => {
   res.send("Hello World");
 });
 
-
 app.use(handleErrorMiddleware);
 export default app;
