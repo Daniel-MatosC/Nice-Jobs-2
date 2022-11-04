@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use("/users", userRoutes);
 
-app.use("/testando", (req, res) => {
+app.use("/", (req, res) => {
   res.send("Hello World");
 });
 
