@@ -14,7 +14,7 @@ app.use("/users", userRoutes);
 app.use("", servicesRoutes);
 app.use("", categoriesRoutes);
 
-app.use("/testando", (req, res) => {
+app.use("/", (req, res) => {
   res.send("Hello World");
 });
 
