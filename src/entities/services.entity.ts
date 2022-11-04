@@ -21,7 +21,7 @@ export class Services {
   @Column()
   serviceOwner: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
   @Column()
@@ -42,10 +42,6 @@ export class Services {
   constructor() {
     if (!this.id) {
       this.id = uuid();
-    }
-
-    if (!this.isActive) {
-      this.isActive = true;
     }
 
     if (!this.createdAt) {

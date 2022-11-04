@@ -7,8 +7,8 @@ import categoriesRoutes from "./routes/categories.routes";
 const app = express();
 app.use(express.json());
 
-app.use(servicesRoutes);
-app.use(categoriesRoutes);
+import servicesRoutes from "./routes/services.routes";
+import categoriesRoutes from "./routes/categories.routes";
 
 app.use("/testando", (req, res) => {
   res.send("Hello World");
