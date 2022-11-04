@@ -8,6 +8,6 @@ import listServicesOnCategoryController from "../controllers/categories/listServ
 
 categoriesRoutes.post("/categories", createCategoryController);
 categoriesRoutes.get("/categories", listCategoriesController);
-categoriesRoutes.get("/categories/:id", listServicesOnCategoryController);
+categoriesRoutes.get("/categories/:id/services", listServicesOnCategoryController);
 
 export default categoriesRoutes;

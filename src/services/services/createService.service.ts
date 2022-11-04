@@ -6,7 +6,7 @@ import { Categories } from "../../entities/categories.entity";
 
 import { IServiceRequest, IDescription } from "../../interfaces/services";
 import { AppError } from "../../errors/appError";
-import { FindOperator } from "typeorm";
+
 
 const createServiceService = async ({
   serviceName,
