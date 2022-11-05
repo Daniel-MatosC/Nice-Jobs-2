@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Exclude } from "class-transformer";
 import { Schedules } from "./schedules.entity";
+import { Services } from "./services.entity";
 
 @Entity()
 export class User {
@@ -35,6 +36,9 @@ export class User {
 
   @OneToMany(() => Schedules, (schedules) => schedules.user)
   schedules: Schedules[];
+
+  @OneToMany(() => Services, (services) => services.user)
+  services: Services[];
 
   constructor() {
     if (!this.id) {

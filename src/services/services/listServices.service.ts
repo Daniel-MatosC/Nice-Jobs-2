@@ -8,6 +8,7 @@ const listServicesService = async () => {
     relations: {
       description: true,
       category: true,
+      user: true,
     },
   });
 

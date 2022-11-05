@@ -1,4 +1,5 @@
 import { Description } from "../../entities/description.entity";
+import { User } from "../../entities/user.entity";
 
 export interface IServiceRequest {
   serviceName: string;
@@ -6,6 +7,7 @@ export interface IServiceRequest {
   isActive: boolean;
   description: Description;
   category: string;
+  user: string;
 }
 
 export interface IService {

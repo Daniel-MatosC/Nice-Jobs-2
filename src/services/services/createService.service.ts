@@ -6,7 +6,7 @@ import { Categories } from "../../entities/categories.entity";
 
 import { IServiceRequest, IDescription } from "../../interfaces/services";
 import { AppError } from "../../errors/appError";
-
+import { User } from "../../entities/user.entity";
 
 const createServiceService = async ({
   serviceName,
@@ -14,6 +14,7 @@ const createServiceService = async ({
   isActive,
   description,
   category,
+  user,
 }: IServiceRequest): Promise<Services> => {
   const serviceRepository = AppDataSource.getRepository(Services);
 
@@ -21,10 +22,22 @@ const createServiceService = async ({
 
   const categoryRepository = AppDataSource.getRepository(Categories);
 
-  const categoryId = await categoryRepository.findOne({ where: { id: category } });
+  const userRepository = AppDataSource.getRepository(User);
 
-  if(!categoryId) {
-    throw new AppError('Category not found');
+  const userId = await userRepository.findOne({
+    where: { id: user },
+  });
+
+  if (!userId) {
+    throw new AppError("Category not found");
+  }
+
+  const categoryId = await categoryRepository.findOne({
+    where: { id: category },
+  });
+
+  if (!categoryId) {
+    throw new AppError("Category not found");
   }
 
   const serviceDescription: IDescription =
@@ -40,6 +53,7 @@ const createServiceService = async ({
     category: categoryId,
     createdAt: new Date(),
     updatedAt: new Date(),
+    user: userId,
   });
 
   await serviceRepository.save(service);
