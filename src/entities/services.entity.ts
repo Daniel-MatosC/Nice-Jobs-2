@@ -5,10 +5,12 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
+  ManyToMany,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Categories } from "./categories.entity";
 import { Description } from "./description.entity";
+import { User } from "./user.entity";
 
 @Entity()
 export class Services {
@@ -32,6 +34,9 @@ export class Services {
 
   @ManyToOne(() => Categories)
   category: Categories;
+
+  @ManyToOne(() => User, { eager: true })
+  user: User;
 
   @OneToOne((type) => Description, {
     eager: true,
