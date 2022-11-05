@@ -83,7 +83,7 @@ describe("/users", () => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)
     })
-    test("GET /users -  Must be able to list users",async () => {
+    test("GET /users - Must be able to list all users",async () => {
         const adminLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
         const response = await request(app).get('/users').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
@@ -123,7 +123,7 @@ describe("/users", () => {
         expect(response.status).toBe(204)
         expect(findUser.body[0].isActive).toBe(false)
     })
-    test("DELETE /users/:id -  shouldn't be able to delete user with isActive = false",async () => {
+    test("DELETE /users/:id -  should not be able to delete user with isActive === false",async () => {
         await request(app).post('/users').send(mockedUserPremium)
 
         const adminLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
@@ -177,8 +177,6 @@ describe("/users", () => {
         const admingLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
         const token = `Bearer ${admingLoginResponse.body.token}`
         
-        const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token);
-
         const response = await request(app).patch(`/users/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization",token).send(newValues)
 
         expect(response.body).toHaveProperty("message")

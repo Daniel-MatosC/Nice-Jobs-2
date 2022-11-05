@@ -4,7 +4,6 @@ import AppDataSource from "../../../data-source";
 import request from "supertest"
 import app from "../../../app";
 
-
 describe("/login", () => {
     let connection: DataSource
 
@@ -26,7 +25,6 @@ describe("/login", () => {
         
         expect(response.body).toHaveProperty("token")
         expect(response.status).toBe(200)
-     
     })
 
     test("POST /login -  should not be able to login with the user with incorrect password or email",async () => {
@@ -38,7 +36,6 @@ describe("/login", () => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(403)
         expect(response.body.message).toEqual("Incorrect email/password combination")
-             
     })
 
 })
