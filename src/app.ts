@@ -4,12 +4,13 @@ import express from "express";
 import servicesRoutes from "./routes/services.routes";
 import categoriesRoutes from "./routes/categories.routes";
 import userRoutes from "./routes/user.routes";
+import sessionRoutes from "./routes/sessions.routes";
 
 const app = express();
 app.use(express.json());
 
 app.use(express.json());
-
+app.use("/login",sessionRoutes);
 app.use("/users", userRoutes);
 app.use("", servicesRoutes);
 app.use("", categoriesRoutes);
