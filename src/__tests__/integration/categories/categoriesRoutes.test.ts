@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../../../app";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
-import { mockedCategory } from "../../mocks";
+import { mockedCategory, mockedCategory2 } from "../../mocks";
 
 describe("/categories", () => {
   let connection: DataSource;
@@ -41,6 +41,9 @@ describe("/categories", () => {
   });
 
   test("GET /categories - Must be able to list all categories", async () => {
+    await request(app)
+      .post("/categories")
+      .send(mockedCategory2);
     const response = await request(app).get("/categories");
     expect(response.body).toHaveLength(2);
     expect(response.status).toBe(200);

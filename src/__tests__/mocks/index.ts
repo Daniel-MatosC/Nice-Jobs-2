@@ -5,6 +5,9 @@ import { IUserLogin } from "../../interfaces/users";
 export const mockedCategory: ICategoryRequest = {
   name: "Manutenção",
 };
+export const mockedCategory2: ICategoryRequest = {
+  name: "Bolo",
+};
 
 export const mockedAdminLogin: IUserLogin = {
   email: "felipe@mail.com",
