@@ -3,7 +3,6 @@ import { User } from "../../entities/user.entity";
 
 export interface IServiceRequest {
   serviceName: string;
-  serviceOwner: string;
   isActive: boolean;
   description: Description;
   category: string;
