@@ -10,7 +10,6 @@ const listCategoriesService = async (id: IServicesOnCategory) => {
   const ServicesRepository = AppDataSource.getRepository(Services);
 
   const category = await categoriesRepository.findOneBy(id);
-  console.log(category);
 
   if (!category) {
     throw new AppError("Category not found");

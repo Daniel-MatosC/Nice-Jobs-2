@@ -10,6 +10,6 @@ const userRoutes = Router();
 userRoutes.post("", createUserController);
 userRoutes.get("",ensureAuth, listUsersController);
 userRoutes.patch("/:id",ensureAuth, updateUserController);
-userRoutes.delete("/:id", deleteUserController);
+userRoutes.delete("/:id",ensureAuth, deleteUserController);
 
 export default userRoutes;

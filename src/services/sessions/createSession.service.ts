@@ -17,22 +17,20 @@ const CreateSessionService = async ({
         where: { email },
     });
     if (!user) {
-        throw new AppError("User not found");
+        throw new AppError("User not found",403);
     }
 
     if (!user.password) {
-        throw new Error("Password / Email is incorrect");
+        throw new AppError("Password / Email is incorrect",403);
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-        throw new AppError("Password/Email does not match");
+        throw new AppError("Incorrect email/password combination",403);
     }
     const token = jwt.sign({ email: email, isActive: user.isActive, isPremium: user.isPremium,isOffering:user.isOffering }, String(process.env.SECRET_KEY), {
         expiresIn: "24h",
         subject: user.id,
     });
-
-    console.log(token);
     
     return token;
 }
