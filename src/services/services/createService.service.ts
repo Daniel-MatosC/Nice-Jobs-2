@@ -10,7 +10,6 @@ import { User } from "../../entities/user.entity";
 
 const createServiceService = async ({
   serviceName,
-  serviceOwner,
   isActive,
   description,
   category,
@@ -41,13 +40,16 @@ const createServiceService = async ({
   }
 
   const serviceDescription: IDescription =
-    descriptionRepository.create(description);
+  descriptionRepository.create({
+    ...description,
+    atuationArea:categoryId.name
+  });
 
   await descriptionRepository.save(serviceDescription);
 
   const service = serviceRepository.create({
     serviceName,
-    serviceOwner,
+    serviceOwner: userId.name,
     isActive,
     description: serviceDescription,
     category: categoryId,
