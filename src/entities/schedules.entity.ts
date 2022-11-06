@@ -8,10 +8,10 @@ export class Schedules {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @Column()
+  @Column({ type: "date" })
   date: string;
 
-  @Column()
+  @Column({ type: "time" })
   hour: string;
 
   @Column({ default: false })
