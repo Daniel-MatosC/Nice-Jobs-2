@@ -86,7 +86,7 @@ describe("/users", () => {
     test("GET /users - Must be able to list all users",async () => {
         const adminLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
         const response = await request(app).get('/users').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-
+        expect(response.body).not.toHaveProperty("password")
         expect(response.body).toHaveLength(3) 
     })
     test("GET /users -  should not be able to list users without authentication",async () => {
@@ -98,7 +98,7 @@ describe("/users", () => {
     test("GET /users -  should be able to list users not being Premium",async () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserNotPremium);
         const response = await request(app).get('/users').set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-
+        expect(response.body).not.toHaveProperty("password")
         expect(response.body).toHaveLength(3) 
     })
 
@@ -169,6 +169,20 @@ describe("/users", () => {
         const userTobeUpdateId = userTobeUpdateRequest.body[0].id
 
         const response = await request(app).patch(`/users/${userTobeUpdateId}`).set("Authorization",token).send(newValue)
+        expect(response.body.message).toBe("You can't update this field")
+        expect(response.status).toBe(401)
+    })
+    test("PATCH /users/:id - should not be able to update id",async () => {
+        const newValue = {id: "13970660-5dbe-423a-9a9d-5c23b37943cf"}
+
+        const admingLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
+        const token = `Bearer ${admingLoginResponse.body.token}`
+        
+        const userTobeUpdateRequest = await request(app).get("/users").set("Authorization", token)
+        const userTobeUpdateId = userTobeUpdateRequest.body[0].id
+
+        const response = await request(app).patch(`/users/${userTobeUpdateId}`).set("Authorization",token).send(newValue)
+        expect(response.body.message).toBe("You can't update this field")
         expect(response.status).toBe(401)
     })
     test("PATCH /users/:id - should not be able to update user with invalid id",async () => {
