@@ -9,10 +9,10 @@ import deleteServiceController from "../controllers/services/deleteService.contr
 import listServiceUserController from "../controllers/services/listServiceUser.controller";
 import { ensureAuth } from "../middlewares/ensureAuth.middleware";
 
-servicesRoutes.post("/services", ensureAuth, createServiceController);
-servicesRoutes.get("/services", listServicesController);
-servicesRoutes.patch("/services/:id", updateServiceController);
-servicesRoutes.delete("/services/:id", deleteServiceController);
-servicesRoutes.get("/services/users/:id", listServiceUserController);
+servicesRoutes.post("", ensureAuth, createServiceController);
+servicesRoutes.get("", listServicesController);
+servicesRoutes.patch("/:id", updateServiceController);
+servicesRoutes.delete("/:id", deleteServiceController);
+servicesRoutes.get("/users/:id", listServiceUserController);
 
 export default servicesRoutes;
