@@ -100,6 +100,7 @@ describe("/users", () => {
         const response = await request(app).get('/users').set("Authorization", `Bearer ${userLoginResponse.body.token}`)
         expect(response.body).not.toHaveProperty("password")
         expect(response.body).toHaveLength(3) 
+        expect(response.status).toBe(200) 
     })
 
     test("DELETE /users/:id -  should not be able to delete user without authentication",async () => {
@@ -159,7 +160,7 @@ describe("/users", () => {
         expect(userUpdated.body[0].name).toEqual("Hassan Rodrigues")
         expect(userUpdated.body[0]).not.toHaveProperty("password")
     }) 
-    test("PATCH /users/:id - should not be able to update isActive",async () => {
+    test("PATCH /users/:id - should not be able to update isActive field",async () => {
         const newValue = {isActive: false}
 
         const admingLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
@@ -172,7 +173,7 @@ describe("/users", () => {
         expect(response.body.message).toBe("You can't update this field")
         expect(response.status).toBe(401)
     })
-    test("PATCH /users/:id - should not be able to update id",async () => {
+    test("PATCH /users/:id - should not be able to update id field",async () => {
         const newValue = {id: "13970660-5dbe-423a-9a9d-5c23b37943cf"}
 
         const admingLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);

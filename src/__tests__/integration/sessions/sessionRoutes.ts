@@ -20,14 +20,14 @@ describe("/login", () => {
         await connection.destroy()
     })
 
-    test("POST /login -  should be able to login with the user",async () => {
+    test("POST /login -  should be able to login with the email and password.",async () => {
         const response = await request(app).post("/login").send(mockedPremiunLogin);
         
         expect(response.body).toHaveProperty("token")
         expect(response.status).toBe(200)
     })
 
-    test("POST /login -  should not be able to login with the user with incorrect password or email",async () => {
+    test("POST /login -  should not be able to login with incorrect password / email",async () => {
         const response = await request(app).post("/login").send({
             email: "hassansilva@gmail.com",
             password: "12345671"
