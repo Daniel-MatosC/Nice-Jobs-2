@@ -3,7 +3,6 @@ import { Services } from "./../../entities/services.entity";
 import { Categories } from "../../entities/categories.entity";
 import AppDataSource from "../../data-source";
 import { AppError } from "../../errors/appError";
-import { LimitOnUpdateNotSupportedError } from "typeorm";
 
 const listCategoriesService = async (id: IServicesOnCategory) => {
   const categoriesRepository = AppDataSource.getRepository(Categories);
