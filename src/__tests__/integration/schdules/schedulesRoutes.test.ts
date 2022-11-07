@@ -30,14 +30,18 @@ describe("/schedules", () => {
     await request(app).post("/users").send(mockedUserNotPremium);
     await request(app).post("/users").send(mockedUserPremium);
     await request(app).post("/users").send(mockedUserPremiumAndOffering);
+    
     const premiumLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedPremiunLogin);
+    .post("/login")
+    .send(mockedPremiunLogin);
+    const users = await request(app).get("/users").set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
+    console.log('users',users.body)
     const categories = await request(app)
       .post("/categories")
       .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
       .send(mockedCategory);
     mockedService.categoryId = categories.body.id;
+    mockedService.user = premiumLoginResponse.body.id;
     await request(app)
       .post("/services")
       .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
