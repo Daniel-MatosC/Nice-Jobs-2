@@ -5,7 +5,9 @@ const listServicesOnCategoryController = async (req:Request,res:Response) => {
     const {id} = req.params;
     const services = await listServicesOnCategoryService({id});
 
-    return res.json(services);
+    console.log("id",services);
+
+    return res.status(200).json(services);
 }
 
 export default listServicesOnCategoryController;

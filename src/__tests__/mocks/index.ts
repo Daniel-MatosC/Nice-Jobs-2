@@ -16,14 +16,13 @@ export const mockedAdminLogin: IUserLogin = {
 
 export const mockedService = {
   serviceName: "Manutenção em computadores",
-  serviceOwner: "Matheus",
   isActive: true,
   description: {
     serviceDescription: "Faço manutenção em computadores",
     serviceValue: 50,
-    atuationArea: "Manutenção",
   },
   categoryId: "",
+  user: "",
 };
 
 export const mockedUserNotPremium = {
