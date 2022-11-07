@@ -391,12 +391,10 @@ Para cadastrar um serviço devemos utilizar as informações contidas no formato
 ```json
 {
   "serviceName": "Manutenção e conserto em computadores",
-  "serviceOwner": "Hassan",
   "isActive": true,
   "description":{  
 	"serviceDescription":"Faço manutenção e conserto em computadores",
 	"serviceValue": 50, 
-	"atuationArea": "Tecnologia"
 	},
    "categoryId": "d2ac7019-8949-49c8-a18c-812fe4515f87",
    "user": "8d49c0ce-df4a-4be6-9f12-0acdeac31b3c"
