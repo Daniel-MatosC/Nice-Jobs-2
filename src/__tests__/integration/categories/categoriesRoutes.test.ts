@@ -6,8 +6,10 @@ import {
   mockedCategory,
   mockedCategory2,
   mockedPremiunLogin,
+  mockedPremiunLoginTrue,
   mockedService,
   mockedUserPremium,
+  mockedUserPremiumTrue,
 } from "../../mocks";
 
 describe("/categories", () => {
@@ -54,15 +56,15 @@ describe("/categories", () => {
   });
 
   test("GET /categories/:id/services - Must be able to list one category service", async () => {
-    await request(app).post("/users").send(mockedUserPremium);
+    await request(app).post("/users").send(mockedUserPremiumTrue);
     const adminLoginResponse = await request(app)
       .post("/login")
-      .send(mockedPremiunLogin);
+      .send(mockedPremiunLoginTrue);
     const user = await request(app)
       .get("/users")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
     const category = await request(app).get("/categories");
-    mockedService.categoryId = category.body[0].id;
+    mockedService.category = category.body[0].id;
     mockedService.user = user.body[0].id;
     await request(app)
       .post("/services")
