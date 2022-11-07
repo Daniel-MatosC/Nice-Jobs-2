@@ -39,10 +39,9 @@ const createServiceService = async ({
     throw new AppError("Category not found");
   }
 
-  const serviceDescription: IDescription =
-  descriptionRepository.create({
+  const serviceDescription: IDescription = descriptionRepository.create({
     ...description,
-    atuationArea:categoryId.name
+    atuationArea: categoryId.name,
   });
 
   await descriptionRepository.save(serviceDescription);
