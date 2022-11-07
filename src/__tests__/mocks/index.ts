@@ -21,7 +21,18 @@ export const mockedService = {
     serviceDescription: "Faço manutenção em computadores",
     serviceValue: 50,
   },
-  categoryId: "",
+  category: "",
+  user: "",
+};
+
+export const mockedServiceInvalidCategoryId = {
+  serviceName: "Manutenção em computadores",
+  isActive: true,
+  description: {
+    serviceDescription: "Faço manutenção em computadores",
+    serviceValue: 50,
+  },
+  category: "fçlasdjfkladhfglagvknfjkgv",
   user: "",
 };
 
@@ -38,6 +49,14 @@ export const mockedUserPremium = {
   password: "123456",
   isPremium: true,
   isOffering: false,
+};
+
+export const mockedUserPremiumTrue = {
+  name: "Matheus",
+  email: "matheus@gmail.com",
+  password: "123456",
+  isPremium: true,
+  isOffering: true,
 };
 export const mockedUserPremiumAndOffering = {
   name: "hassan da silva junior",
@@ -83,4 +102,9 @@ export const mockedScheduleInvalidServiceId = {
   hour: "10:30",
   serviceId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
   userId: "",
+};
+
+export const mockedPremiunLoginTrue = {
+  email: "matheus@gmail.com",
+  password: "123456",
 };
