@@ -24,14 +24,14 @@ const createScheduleService = async (
   const hour = +schedule.hour.split(" : ")[0];
 
   if (hour < 8 || hour >= 22) {
-    throw new AppError("Schedule during business hours");
+    throw new AppError("Schedule during business hours",400);
   }
   const service = await serviceRepository.findOneBy({
     id: schedule.serviceId,
   });
 
   if (!service) {
-    throw new AppError("Service not found");
+    throw new AppError("Service not found",400);
   }
 
   const scheduleExists = await scheduleRepository.findOne({

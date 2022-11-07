@@ -1,15 +1,17 @@
+import { User } from './../../../entities/user.entity';
+import { Services } from './../../../entities/services.entity';
 import {
   mockedCategory,
   mockedPremiunLogin,
+  mockedPremiunLoginTrue,
   mockedSchedule,
   mockedScheduleInvalidHourLess8,
   mockedScheduleInvalidHourMore22,
   mockedScheduleInvalidServiceId,
   mockedService,
-  mockedUserLogin,
   mockedUserNotPremium,
   mockedUserPremium,
-  mockedUserPremiumAndOffering,
+  mockedUserPremiumTrue,
 } from "./../../mocks/index";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
@@ -27,25 +29,28 @@ describe("/schedules", () => {
       .catch((err) => {
         console.error("Error during Data Source initialization", err);
       });
+    await request(app).post("/users").send(mockedUserPremiumTrue);
     await request(app).post("/users").send(mockedUserNotPremium);
     await request(app).post("/users").send(mockedUserPremium);
-    await request(app).post("/users").send(mockedUserPremiumAndOffering);
     
     const premiumLoginResponse = await request(app)
     .post("/login")
-    .send(mockedPremiunLogin);
+    .send(mockedPremiunLoginTrue);
+
     const users = await request(app).get("/users").set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
-    console.log('users',users.body)
-    const categories = await request(app)
+    
+    await request(app)
       .post("/categories")
       .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
       .send(mockedCategory);
-    mockedService.categoryId = categories.body.id;
-    mockedService.user = premiumLoginResponse.body.id;
-    await request(app)
+    const categories = await request(app).get("/categories").set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
+    mockedService.category = categories.body[0].id;
+    mockedService.user = users.body[0].id;
+    const services = await request(app)
       .post("/services")
       .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`)
       .send(mockedService);
+    
   });
 
   afterAll(async () => {
@@ -53,16 +58,14 @@ describe("/schedules", () => {
   });
 
   test("POST /schedules - should be able to create a schedule", async () => {
-    const premiumLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedPremiunLogin);
+    const userLoginResponse = await request(app)
+    .post("/login")
+    .send(mockedPremiunLoginTrue);
     const users = await request(app)
       .get("/users")
-      .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`);
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
     const services = await request(app).get("/services");
-    const userLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedUserLogin);
+  
     mockedSchedule.serviceId = services.body[0].id;
     mockedSchedule.userId = users.body[1].id;
     const response = await request(app)
@@ -75,16 +78,14 @@ describe("/schedules", () => {
   });
 
   test("POST /schedules -  should not be able to create a schedule that already exists", async () => {
-    const premiumLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedPremiunLogin);
+    const userLoginResponse = await request(app)
+    .post("/login")
+    .send(mockedPremiunLoginTrue);
     const users = await request(app)
       .get("/users")
-      .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`);
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
     const services = await request(app).get("/services");
-    const userLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedUserLogin);
+    
     mockedSchedule.serviceId = services.body[0].id;
     mockedSchedule.userId = users.body[1].id;
     const response = await request(app)
@@ -97,16 +98,13 @@ describe("/schedules", () => {
   });
 
   test("POST /schedules -  should not be able to create a schedule with an invalid hour < 8", async () => {
-    const premiumLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedPremiunLogin);
-    const users = await request(app)
-      .get("/users")
-      .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`);
-    const services = await request(app).get("/services");
     const userLoginResponse = await request(app)
       .post("/login")
-      .send(mockedUserLogin);
+      .send(mockedPremiunLoginTrue);
+    const users = await request(app)
+      .get("/users")
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
+    const services = await request(app).get("/services");
     mockedScheduleInvalidHourLess8.serviceId = services.body[0].id;
     mockedScheduleInvalidHourLess8.userId = users.body[1].id;
     const response = await request(app)
@@ -119,16 +117,14 @@ describe("/schedules", () => {
   });
 
   test("POST /schedules -  should not be able to create a schedule with an invalid hour > 18", async () => {
-    const adminLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedPremiunLogin);
-    const users = await request(app)
-      .get("/users")
-      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
-    const services = await request(app).get("/services");
     const userLoginResponse = await request(app)
       .post("/login")
-      .send(mockedUserLogin);
+      .send(mockedPremiunLoginTrue);
+    const users = await request(app)
+      .get("/users")
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
+    const services = await request(app).get("/services");
+   
     mockedScheduleInvalidHourMore22.serviceId = services.body[0].id;
     mockedScheduleInvalidHourMore22.userId = users.body[1].id;
     const response = await request(app)
@@ -141,15 +137,13 @@ describe("/schedules", () => {
   });
 
   test("POST /schedules -  should not be able to create a schedule with an invalid service id", async () => {
-    const premiumLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedPremiunLogin);
-    const users = await request(app)
-      .get("/users")
-      .set("Authorization", `Bearer ${premiumLoginResponse.body.token}`);
     const userLoginResponse = await request(app)
       .post("/login")
-      .send(mockedUserLogin);
+      .send(mockedPremiunLoginTrue);
+    const users = await request(app)
+      .get("/users")
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
+    
     mockedScheduleInvalidServiceId.userId = users.body[1].id;
     const response = await request(app)
       .post("/schedules")

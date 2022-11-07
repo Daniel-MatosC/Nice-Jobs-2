@@ -74,23 +74,6 @@ describe("/services", () => {
     expect(response.status).toBe(201);
   });
 
-  //   test("POST /services - should not be able to create a service that already exists", async () => {
-  //     const categories = await request(app).get("/categories");
-  //     const adminLoginResponse = await request(app)
-  //       .post("/login")
-  //       .send(mockedPremiunLogin);
-  //     mockedService.category = categories.body[0].id;
-  //     const response = await request(app)
-  //       .post("/services")
-  //       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-  //       .send(mockedService);
-
-  //     console.log("Teste", response.body);
-
-  //     expect(response.body).toHaveProperty("message");
-  //     expect(response.status).toBe(400);
-  //   });
-
   test("POST /services - should not be able to create a service not being isOffering", async () => {
     const categories = await request(app).get("/categories");
     const userLoginResponse = await request(app)

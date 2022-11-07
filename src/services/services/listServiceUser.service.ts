@@ -24,10 +24,8 @@ const listServiceUserService = async (id: string): Promise<Services[]> => {
     },
   });
 
-  //   console.log(findAllservices);
 
   const service = findAllservices.filter((service) => {
-    console.log(service.user.id === userId.id);
     return service.user.id === userId.id;
   });
 
