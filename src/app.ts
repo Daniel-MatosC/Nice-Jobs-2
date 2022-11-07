@@ -6,7 +6,6 @@ import servicesRoutes from "./routes/services.routes";
 import categoriesRoutes from "./routes/categories.routes";
 import userRoutes from "./routes/user.routes";
 import sessionRoutes from "./routes/sessions.routes";
-import "express-async-errors";
 import schedulesRoutes from "./routes/schedules.routes";
 
 const app = express();
