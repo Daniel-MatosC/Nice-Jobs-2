@@ -16,6 +16,21 @@ const createScheduleService = async (
   if (!schedule) {
     throw new AppError("Check the required fields");
   }
+
+  if(schedule.date == ""){
+    throw new AppError("Date is required");
+  }
+  if(schedule.date.length>12){
+    throw new AppError("Date is invalid");
+  }
+
+  if(schedule.hour == ""){
+    throw new AppError("Hour is required");
+  }
+  if(schedule.hour.length>9){
+    throw new AppError("Hour is invalid");
+  }
+
   const user = await userRepository.findOneBy({ id: userID });
 
   if (!user) {
