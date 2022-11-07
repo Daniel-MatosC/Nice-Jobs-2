@@ -176,7 +176,7 @@ describe("/schedules", () => {
     expect(response.status).toBe(401);
   });
 
-  test("GET /users - Must be able to list all schedules", async () => {
+  test("GET /schedules - Must be able to list all schedules", async () => {
     const adminLoginResponse = await request(app)
       .post("/login")
       .send(mockedPremiunLogin);
