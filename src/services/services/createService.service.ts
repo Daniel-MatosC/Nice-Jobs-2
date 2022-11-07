@@ -28,7 +28,11 @@ const createServiceService = async ({
   });
 
   if (!userId) {
-    throw new AppError("Category not found");
+    throw new AppError("User not found");
+  }
+
+  if (userId.isOffering === false) {
+    throw new AppError("User is not offering");
   }
 
   const categoryId = await categoryRepository.findOne({
