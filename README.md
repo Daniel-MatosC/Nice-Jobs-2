@@ -203,6 +203,7 @@ Por meio desse end-point pode ser realizado um soft delete de um usuário espec�
 ```
 Não é necessário um corpo da requisição.
 ```
+<h2 align ='center'> Possíveis erros </h2>
 
 Caso você acabe errando o id, a resposta de erro será assim:
 
