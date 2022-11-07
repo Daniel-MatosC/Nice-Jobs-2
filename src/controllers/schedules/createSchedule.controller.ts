@@ -6,7 +6,9 @@ const createScheduleController = async (req: Request, res: Response) => {
   const userID = req.user.userId;
   const newSchedule = await createScheduleService(schedule, userID as string);
 
-  return res.status(201).json({ message: "Schedule created", schedules: newSchedule });
+  return res
+    .status(201)
+    .json({ message: "Schedule created", schedules: newSchedule });
 };
 
 export default createScheduleController;

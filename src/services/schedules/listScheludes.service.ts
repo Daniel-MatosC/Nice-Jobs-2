@@ -1,4 +1,3 @@
-import { Services } from "./../../entities/services.entity";
 import { Schedules } from "./../../entities/schedules.entity";
 import AppDataSource from "../../data-source";
 

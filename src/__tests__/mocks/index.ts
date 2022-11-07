@@ -48,11 +48,39 @@ export const mockedUserPremiumAndOffering = {
 };
 
 export const mockedUserLogin = {
-  email: "joana@mail.com",
+  email: "hassansilvajunior@gmail.com",
   password: "123456",
 };
 
 export const mockedPremiunLogin = {
   email: "hassansilva@gmail.com",
   password: "123456",
+};
+
+export const mockedSchedule = {
+  date: "12/08/2022",
+  hour: "10:30",
+  serviceId: "",
+  userId: "",
+};
+
+export const mockedScheduleInvalidHourLess8 = {
+  date: "2022/08/17",
+  hour: "5",
+  serviceId: "",
+  userId: "",
+};
+
+export const mockedScheduleInvalidHourMore22 = {
+  date: "2022/08/17",
+  hour: "23",
+  serviceId: "",
+  userId: "",
+};
+
+export const mockedScheduleInvalidServiceId = {
+  date: "2022/08/12",
+  hour: "10:30",
+  serviceId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
+  userId: "",
 };
