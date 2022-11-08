@@ -99,9 +99,14 @@ describe("/services", () => {
   });
 
   test("POST /services - should not be able to create a service with invalid categoryId", async () => {
+    
     const adminLoginResponse = await request(app)
       .post("/login")
       .send(mockedPremiunLoginTrue);
+      const user = await request(app)
+      .get("/users")
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+    mockedServiceInvalidCategoryId.user = user.body[0].id;
     const response = await request(app)
       .post("/services")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)

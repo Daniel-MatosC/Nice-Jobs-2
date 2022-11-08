@@ -32,7 +32,7 @@ export const mockedServiceInvalidCategoryId = {
     serviceDescription: "Faço manutenção em computadores",
     serviceValue: 50,
   },
-  category: "fçlasdjfkladhfglagvknfjkgv",
+  category: "13970660-5dbe-423a-9a9d-5c23b37943cf",
   user: "",
 };
 

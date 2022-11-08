@@ -40,7 +40,7 @@ const createServiceService = async ({
   });
 
   if (!categoryId) {
-    throw new AppError("Category not found");
+    throw new AppError("Category not found",404);
   }
 
   const serviceDescription: IDescription = descriptionRepository.create({
