@@ -1,6 +1,6 @@
+import { User } from './../../entities/user.entity';
 import AppDataSource from "../../data-source";
 import { Services } from "../../entities/services.entity";
-import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appError";
 
 const listServiceUserService = async (id: string): Promise<Services[]> => {
@@ -25,14 +25,18 @@ const listServiceUserService = async (id: string): Promise<Services[]> => {
   });
 
 
-  const service = findAllservices.filter((service) => {
+  const serviceAll = findAllservices.filter((service) => {
     return service.user.id === userId.id;
   });
 
-  if (!service) {
+  if (!serviceAll) {
     throw new AppError("Service not found");
   }
-
-  return service;
+  const service : Array<any>= serviceAll.map((service) => {
+    const { user, ...rest } = service;
+    return rest; 
+  });
+  
+ return service;
 };
 export default listServiceUserService;
