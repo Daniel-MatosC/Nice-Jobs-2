@@ -351,7 +351,7 @@ describe("/schedules", () => {
     expect(response.body[0]).toHaveProperty("services");
 
   });
-  test("GET /schedules/:id -should not be able to list schedules by service id  invalid", async () => {
+  test("GET /schedules/services/:id -should not be able to list schedules by service id  invalid", async () => {
     const adminLoginResponse = await request(app)
       .post("/login")
       .send(mockedPremiunLoginTrue);
