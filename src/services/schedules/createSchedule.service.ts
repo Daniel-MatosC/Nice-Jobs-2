@@ -69,6 +69,11 @@ const createScheduleService = async (
 
   await scheduleRepository.save(newSchedule);
 
+  const { password, ...rest } = service.user;
+  return {
+    ...service,
+    user: rest,
+  };
   return newSchedule;
 };
 
