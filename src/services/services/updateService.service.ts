@@ -33,7 +33,9 @@ const updateServiceService = async ({
     id,
   });
 
-  return service;
+  const { user, ...rest } = service!;
+  return rest;
+
 };
 
 export default updateServiceService;
