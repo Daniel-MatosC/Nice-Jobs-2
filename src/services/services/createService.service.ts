@@ -14,6 +14,7 @@ const createServiceService = async ({
   description,
   category,
   user,
+  req_user
 }: IServiceRequest): Promise<any> => {
   const serviceRepository = AppDataSource.getRepository(Services);
 
@@ -31,7 +32,7 @@ const createServiceService = async ({
     throw new AppError("User not found", 404);
   }
 
-  if (userId.isOffering === false) {
+  if (req_user === false) {
     throw new AppError("User is not offering");
   }
 
