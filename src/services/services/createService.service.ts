@@ -14,7 +14,7 @@ const createServiceService = async ({
   description,
   category,
   user,
-}: IServiceRequest): Promise<Services> => {
+}: IServiceRequest): Promise<any> => {
   const serviceRepository = AppDataSource.getRepository(Services);
 
   const descriptionRepository = AppDataSource.getRepository(Description);
@@ -63,7 +63,11 @@ const createServiceService = async ({
 
   await serviceRepository.save(service);
 
-  return service;
+  const { password, ...rest } = service.user;
+  return {
+    ...service,
+    user: rest,
+  };
 };
 
 export default createServiceService;
