@@ -3,7 +3,6 @@ import { Schedules } from './../../entities/schedules.entity';
 import AppDataSource from "../../data-source";
 import { AppError } from '../../errors/appError';
 
-//service
 const listSchedulesByService = async (id: string) => {
     const schedulesRepository = AppDataSource.getRepository(Schedules);
     const ServicesRepository = AppDataSource.getRepository(Services);
