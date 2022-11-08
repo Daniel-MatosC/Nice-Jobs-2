@@ -63,7 +63,6 @@ describe("/services", () => {
     expect(response.body.user).toHaveProperty("updatedAt");
     expect(response.body.user).toHaveProperty("name");
     expect(response.body.user).toHaveProperty("email");
-    expect(response.body.user).toHaveProperty("password");
     expect(response.body.user).toHaveProperty("isPremium");
     expect(response.body.user).toHaveProperty("isActive");
     expect(response.body.user).toHaveProperty("isOffering");

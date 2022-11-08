@@ -11,8 +11,8 @@ import { ensureAuth } from "../middlewares/ensureAuth.middleware";
 
 servicesRoutes.post("", ensureAuth, createServiceController);
 servicesRoutes.get("", listServicesController);
-servicesRoutes.patch("/:id", updateServiceController);
-servicesRoutes.delete("/:id", deleteServiceController);
+servicesRoutes.patch("/:id",ensureAuth ,updateServiceController);
+servicesRoutes.delete("/:id",ensureAuth, deleteServiceController);
 servicesRoutes.get("/users/:id", listServiceUserController);
 
 export default servicesRoutes;
