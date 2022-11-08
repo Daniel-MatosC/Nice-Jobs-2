@@ -8,7 +8,7 @@ import listScheduleByServiceController from '../controllers/schedules/listSchedu
 
 const schedulesRoutes = Router();
 
-schedulesRoutes.post("/", ensureAuth, createScheduleController);
+schedulesRoutes.post("/", ensureAuth,ensureIsOffering, createScheduleController);
 schedulesRoutes.get("/", ensureAuth, listSchedulesController);
 schedulesRoutes.get("/:id", ensureAuth, listOneScheduleController);
 schedulesRoutes.get("/services/:id", ensureAuth,ensureIsOffering, listScheduleByServiceController);

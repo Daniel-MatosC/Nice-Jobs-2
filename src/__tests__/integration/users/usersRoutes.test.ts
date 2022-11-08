@@ -1,4 +1,4 @@
-import { mockedPremiunLogin, mockedUserNotPremium, mockedUserPremium, mockedUserPremiumAndOffering } from './../../mocks/index';
+import { mockedPremiunLogin, mockedUserInvalidEmail, mockedUserInvalidPassword, mockedUserNotPremium, mockedUserPremium, mockedUserPremiumAndOffering } from './../../mocks/index';
 import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import request from "supertest"
@@ -83,6 +83,20 @@ describe("/users", () => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)
     })
+
+    test("POST /users -  should not be able to create a user email invalid",async () => {
+        const response = await request(app).post('/users').send(mockedUserInvalidEmail)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+    })
+    test("POST /users -  should not be able to create a user password invalid",async () => {
+        const response = await request(app).post('/users').send(mockedUserInvalidPassword)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+    })
+
     test("GET /users - Must be able to list all users",async () => {
         const adminLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
         const response = await request(app).get('/users').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)

@@ -4,10 +4,10 @@ import { User } from "../../entities/user.entity";
 export interface IServiceRequest {
   serviceName: string;
   isActive: boolean;
-  description: Description;
+  description: IDescription;
   category: string;
   user: string;
-  req_user: boolean;
+  req_user?: boolean;
 }
 
 export interface IService {
@@ -18,9 +18,9 @@ export interface IService {
 }
 
 export interface IDescription {
-  serviceDescription: string;
-  serviceValue: number;
-  atuationArea: string;
+  serviceDescription?: string;
+  serviceValue?: number;
+  atuationArea?: string;
 }
 
 export interface IServiceUpdate {
