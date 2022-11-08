@@ -12,7 +12,7 @@ Este é o back end da aplicação Nice Jobs - uma plataforma que torna possível
 
 ## **Endpoints**
 
-A API tem um total de 15 endpoints, sendo em volta principalmente do usuário (dev) - podendo cadastrar seu perfil e serviços. <br/>
+A API tem um total de 16 endpoints, sendo em volta principalmente do usuário (dev) - podendo cadastrar seu perfil e serviços. <br/>
 
 O url base da API é https://nice-jobs.herokuapp.com/
 
@@ -565,9 +565,9 @@ Já existe um agendamento na mesma data e hora:
 "Date or hour already exists"
 ```
 
-<h2 align ='center'> Lista o agendamento de um serviço </h2>
+<h2 align ='center'> Busca um agendamento em expecifico </h2>
 
-Podemos utilizar o id do agendamento para buscar um agendamento de determinado serviço, dessa forma:
+Podemos utilizar o id do agendamento no lugar do /:id para buscar um agendamento de determinado serviço, dessa forma:
 
 `GET /schedules/:id - FORMATO DA RESPOSTA - STATUS 200`
 
@@ -597,6 +597,39 @@ Podemos utilizar o id do agendamento para buscar um agendamento de determinado s
 		}
 	}
 }
+```
+
+<h2 align ='center'> Lista os agendamentos de um serviço </h2>
+
+Podemos utilizar o id de um serviço expecifico no lugar do /:id para buscar todas as solicitações de agendamentos realizadas para aquele serviço, dessa forma:
+
+`GET /schedules/services/:id - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+[
+	{
+		"id": "1cd553c1-f9d5-4aac-806b-ce826d444b12",
+		"date": "2022-11-03",
+		"hour": "10:10:00",
+		"user": {
+			"id": "1365c28c-40d7-4285-a12b-ea6db8e6e183",
+			"name": "esther",
+			"email": "esther@kenzie.com"
+		},
+		"services": {
+			"id": "8939ffb4-baeb-4fc8-b2dd-288e2f4a844a",
+			"owner": "Daniel",
+			"name": "Criação de sites",
+			"description": {
+				"id": "93abcee4-fb68-4d3e-ab35-3bb5d34c9707",
+				"serviceDescription": "Crio sites",
+				"serviceValue": "3000.00",
+				"atuationArea": "Tecnologia"
+			}
+		}
+	},
+	...
+]
 ```
 
 <h2 align ='center'> Buscar todos os agendamentos </h2>
