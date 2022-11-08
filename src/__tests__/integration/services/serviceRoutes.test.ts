@@ -98,12 +98,12 @@ describe("/services", () => {
     expect(response.status).toBe(401);
   });
 
-  test("POST /services - should not be able to create property with invalid categoryId", async () => {
+  test("POST /services - should not be able to create a service with invalid categoryId", async () => {
     const adminLoginResponse = await request(app)
       .post("/login")
       .send(mockedPremiunLoginTrue);
     const response = await request(app)
-      .post("/properties")
+      .post("/services")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
       .send(mockedServiceInvalidCategoryId);
 
