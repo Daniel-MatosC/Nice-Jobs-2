@@ -1,12 +1,13 @@
 import { Description } from "../../entities/description.entity";
-import { Categories } from "../../entities/categories.entity";
+import { User } from "../../entities/user.entity";
 
 export interface IServiceRequest {
   serviceName: string;
-  serviceOwner: string;
   isActive: boolean;
-  description: Description;
-  category: Categories;
+  description: IDescription;
+  category: string;
+  user: string;
+  req_user?: boolean;
 }
 
 export interface IService {
@@ -14,4 +15,22 @@ export interface IService {
   serviceName: string;
   serviceOwner: string;
   isActive: boolean;
+}
+
+export interface IDescription {
+  serviceDescription?: string;
+  serviceValue?: number;
+  atuationArea?: string;
+}
+
+export interface IServiceUpdate {
+  serviceName: string;
+  serviceOwner: string;
+  description: Description;
+  categoryId: string;
+  id: string;
+}
+
+export interface IServiceDelete {
+  id: string;
 }
