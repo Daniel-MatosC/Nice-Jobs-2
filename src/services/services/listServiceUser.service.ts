@@ -13,7 +13,7 @@ const listServiceUserService = async (id: string): Promise<Services[]> => {
   });
 
   if (!userId) {
-    throw new AppError("Category not found");
+    throw new AppError("User not found");
   }
 
   const findAllservices = await serviceRepository.find({
