@@ -8,11 +8,14 @@ const listServicesService = async () => {
     relations: {
       description: true,
       category: true,
-      user: true,
+      user: false,
     },
   });
-
-  return services;
+  
+  return services.map((service) => {
+    const { user, ...rest } = service;
+    return rest;
+  });
 };
 
 export default listServicesService;
