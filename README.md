@@ -1,5 +1,5 @@
 <h1 align="center">
-  Nice Jobs - API
+  Nice Jobs 🔎 - API
 </h1>
 
 <p align = "center">
@@ -500,10 +500,176 @@ Não é necessário um corpo da requisição.
 
 <h2 align ='center'> Cria uma solicitação de serviço </h2>
 
-Para criar uma solicitação de serviço devemos utilizar as informações contidas no formato da requisição e informar sempre (... em construção)
+Para criar uma solicitação de serviço devemos utilizar as informações contidas no formato da requisição e informar sempre o id do serviço a qual queremos agendar, dessa forma:
 
 `POST /schedules - FORMATO DA REQUISIÇÃO`
 
----
+```json
+{
+	"date":"11/05/2022",
+	"hour":"24:00",
+	"serviceId":"502e96fc-9fb1-47b1-9bd7-7e4d590c1e17"
+}
+```
+
+`POST /schedules - FORMATO DA RESPOSTA - STATUS 201`
+
+```json
+{
+	"message": "Schedule created",
+	"schedules": {
+		"id": "502e96fc-9fb1-47b1-9bd7-7e4d590c1e17",
+		"createdAt": "2022-11-08T20:16:39.178Z",
+		"updatedAt": "2022-11-08T20:16:39.178Z",
+		"serviceName": "Criação de sites",
+		"serviceOwner": "Hassan",
+		"isActive": true,
+		"user": {
+			"id": "25121b22-cc45-40d5-afb9-52ebec859a3a",
+			"createdAt": "2022-11-07T13:22:19.441Z",
+			"updatedAt": "2022-11-07T13:22:19.441Z",
+			"name": "Hassan",
+			"email": "hassan@kenzie.com",
+			"isPremium": false,
+			"isActive": true,
+			"isOffering": true
+		},
+		"description": {
+			"id": "9c3f5241-3bb7-494c-95e9-f0190ad09ce0",
+			"serviceDescription": "Crio sites",
+			"serviceValue": "3000.00",
+			"atuationArea": "Sites"
+		}
+	}
+}
+
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+No exemplo a requisição foi feita tentando realizar um agendamento fora do horario comercial:
+
+`POST /schedules - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+"Schedule during business hours"
+```
+
+Já existe um agendamento na mesma data e hora:
+
+`POST /schedules - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+"Date or hour already exists"
+```
+
+<h2 align ='center'> Lista o agendamento de um serviço </h2>
+
+Podemos utilizar o id do agendamento para buscar um agendamento de determinado serviço, dessa forma:
+
+`GET /schedules/:id - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+	"id": "1cf3c1c1-8120-4fb1-a2d3-06965b09e026",
+	"date": "2022-11-05",
+	"hour": "13:00:00",
+	"isDone": false,
+	"user": {
+		"name": "Hassan",
+		"email": "hassan@kenzie.com",
+		"id": "25121b22-cc45-40d5-afb9-52ebec859a3a"
+	},
+	"services": {
+		"id": "502e96fc-9fb1-47b1-9bd7-7e4d590c1e17",
+		"createdAt": "2022-11-08T20:16:39.178Z",
+		"updatedAt": "2022-11-08T20:16:39.178Z",
+		"serviceName": "Criação de sites",
+		"serviceOwner": "Hassan",
+		"isActive": true,
+		"description": {
+			"id": "9c3f5241-3bb7-494c-95e9-f0190ad09ce0",
+			"serviceDescription": "Crio sites",
+			"serviceValue": "3000.00",
+			"atuationArea": "Sites"
+		}
+	}
+}
+```
+
+<h2 align ='center'> Buscar todos os agendamentos </h2>
+
+este end-point busca todos os agendamentos realizados por todos os usuarios em todos os serviços cadastrados, dessa forma:
+
+`GET /schedules - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+	"message": "Schedules",
+	"schedules": [
+		{
+			"id": "1cd553c1-f9d5-4aac-806b-ce826d444b12",
+			"date": "2022-11-03",
+			"hour": "10:10:00",
+			"isDone": false,
+			"user": {
+				"id": "1365c28c-40d7-4285-a12b-ea6db8e6e183",
+				"createdAt": "2022-11-08T15:52:42.727Z",
+				"updatedAt": "2022-11-08T15:52:42.727Z",
+				"name": "esther",
+				"email": "esther@kenzie.com",
+				"isPremium": false,
+				"isActive": true,
+				"isOffering": false
+			},
+			"services": {
+				"id": "8939ffb4-baeb-4fc8-b2dd-288e2f4a844a",
+				"createdAt": "2022-11-08T15:43:06.110Z",
+				"updatedAt": "2022-11-08T15:43:06.110Z",
+				"serviceName": "Criação de sites",
+				"serviceOwner": "Daniel",
+				"isActive": true,
+				"description": {
+					"id": "93abcee4-fb68-4d3e-ab35-3bb5d34c9707",
+					"serviceDescription": "Crio sites",
+					"serviceValue": "3000.00",
+					"atuationArea": "Tecnologia"
+				}
+			}
+		},
+		{
+			"id": "08fed345-549e-4e74-b8bf-e9f9db0a7325",
+			"date": "2022-11-03",
+			"hour": "10:11:00",
+			"isDone": false,
+			"user": {
+				"id": "1365c28c-40d7-4285-a12b-ea6db8e6e183",
+				"createdAt": "2022-11-08T15:52:42.727Z",
+				"updatedAt": "2022-11-08T15:52:42.727Z",
+				"name": "esther",
+				"email": "esther@kenzie.com",
+				"isPremium": false,
+				"isActive": true,
+				"isOffering": false
+			},
+			"services": {
+				"id": "8939ffb4-baeb-4fc8-b2dd-288e2f4a844a",
+				"createdAt": "2022-11-08T15:43:06.110Z",
+				"updatedAt": "2022-11-08T15:43:06.110Z",
+				"serviceName": "Criação de sites",
+				"serviceOwner": "Daniel",
+				"isActive": true,
+				"description": {
+					"id": "93abcee4-fb68-4d3e-ab35-3bb5d34c9707",
+					"serviceDescription": "Crio sites",
+					"serviceValue": "3000.00",
+					"atuationArea": "Tecnologia"
+				}
+			}
+		},
+		...
+```
 
 Feito by Daniel-MatosC (SM) :wave:
