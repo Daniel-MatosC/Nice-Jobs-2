@@ -9,6 +9,7 @@ import {
   mockedPremiunLoginTrue,
   mockedService,
   mockedServiceInvalidCategoryId,
+  mockedServiceInvalidUserId,
   mockedUserPremium,
   mockedUserPremiumTrue,
 } from "../../mocks";
@@ -99,11 +100,10 @@ describe("/services", () => {
   });
 
   test("POST /services - should not be able to create a service with invalid categoryId", async () => {
-    
     const adminLoginResponse = await request(app)
       .post("/login")
       .send(mockedPremiunLoginTrue);
-      const user = await request(app)
+    const user = await request(app)
       .get("/users")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
     mockedServiceInvalidCategoryId.user = user.body[0].id;
@@ -111,6 +111,23 @@ describe("/services", () => {
       .post("/services")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
       .send(mockedServiceInvalidCategoryId);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.status).toBe(404);
+  });
+
+  test("POST /services - should not be able to create a service with invalid userId", async () => {
+    const adminLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedPremiunLoginTrue);
+    const categories = await request(app)
+      .get("/categories")
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+    mockedServiceInvalidCategoryId.user = categories.body[0].id;
+    const response = await request(app)
+      .post("/services")
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+      .send(mockedServiceInvalidUserId);
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(404);

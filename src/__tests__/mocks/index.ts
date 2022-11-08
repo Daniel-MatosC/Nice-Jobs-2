@@ -36,6 +36,17 @@ export const mockedServiceInvalidCategoryId = {
   user: "",
 };
 
+export const mockedServiceInvalidUserId = {
+  serviceName: "Manutenção em computadores",
+  isActive: true,
+  description: {
+    serviceDescription: "Faço manutenção em computadores",
+    serviceValue: 50,
+  },
+  category: "",
+  user: "13970660-5dbe-423a-9a9d-5c23b37943cf",
+};
+
 export const mockedUserNotPremium = {
   name: "hassan",
   email: "hassan@gmail.com",
