@@ -337,7 +337,6 @@ Podemos utilizar o id para pegar os usuário que cadastrou o serviço junto com 
 			"updatedAt": "2022-11-07T13:46:58.846Z",
 			"name": "Hassan2",
 			"email": "hassan@kenzie2.com",
-			"password": "$2b$10$vI0s8plrbJw5I.907jJPguDicOhwnUpq8hYwjvruEh3n6i/UCfWUm",
 			"isPremium": false,
 			"isActive": true,
 			"isOffering": true
@@ -424,7 +423,6 @@ Obs: Atente-se em inserir a descrição do serviço na area description.
 		"updatedAt": "2022-11-07T13:46:58.846Z",
 		"name": "Hassan2",
 		"email": "hassan@kenzie2.com",
-		"password": "$2b$10$vI0s8plrbJw5I.907jJPguDicOhwnUpq8hYwjvruEh3n6i/UCfWUm",
 		"isPremium": false,
 		"isActive": true,
 		"isOffering": true
@@ -469,7 +467,6 @@ Você pode apenas dar update nas informações dos serviços que já está no se
 			"updatedAt": "2022-11-07T13:46:58.846Z",
 			"name": "Hassan2",
 			"email": "hassan@kenzie2.com",
-			"password": "$2b$10$vI0s8plrbJw5I.907jJPguDicOhwnUpq8hYwjvruEh3n6i/UCfWUm",
 			"isPremium": false,
 			"isActive": true,
 			"isOffering": true
