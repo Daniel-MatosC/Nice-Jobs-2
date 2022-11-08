@@ -14,7 +14,7 @@ Este é o back end da aplicação Nice Jobs - uma plataforma que torna possível
 
 A API tem um total de 15 endpoints, sendo em volta principalmente do usuário (dev) - podendo cadastrar seu perfil e serviços. <br/>
 
-O url base da API é https://nice-jobs.herokuapp.com/
+O url base da API é <link target="blank"> https://nice-jobs.herokuapp.com/</link>
 
 ## Rotas que não precisam de autenticação
 
