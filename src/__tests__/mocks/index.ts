@@ -11,7 +11,7 @@ export const mockedCategory2: ICategoryRequest = {
 
 export const mockedAdminLogin: IUserLogin = {
   email: "felipe@mail.com",
-  password: "123456",
+  password: "1234@Abc",
 };
 
 export const mockedService = {
@@ -39,14 +39,14 @@ export const mockedServiceInvalidCategoryId = {
 export const mockedUserNotPremium = {
   name: "hassan",
   email: "hassan@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
   isPremium: false,
   isOffering: false,
 };
 export const mockedUserPremium = {
   name: "hassan da silva",
   email: "hassansilva@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
   isPremium: true,
   isOffering: false,
 };
@@ -54,26 +54,26 @@ export const mockedUserPremium = {
 export const mockedUserPremiumTrue = {
   name: "Matheus",
   email: "matheus@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
   isPremium: true,
   isOffering: true,
 };
 export const mockedUserPremiumAndOffering = {
   name: "hassan da silva junior",
   email: "hassansilvajunior@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
   isPremium: true,
   isOffering: true,
 };
 
 export const mockedUserLogin = {
   email: "hassansilvajunior@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
 };
 
 export const mockedPremiunLogin = {
   email: "hassansilva@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
 };
 
 export const mockedSchedule = {
@@ -106,5 +106,5 @@ export const mockedScheduleInvalidServiceId = {
 
 export const mockedPremiunLoginTrue = {
   email: "matheus@gmail.com",
-  password: "123456",
+  password: "1234@Abc",
 };
