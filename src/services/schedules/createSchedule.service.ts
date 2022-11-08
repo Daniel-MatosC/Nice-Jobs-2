@@ -36,7 +36,8 @@ const createScheduleService = async (
   if (!user) {
     throw new AppError("User not found");
   }
-  const hour = +schedule.hour.split(" : ")[0];
+  const hour = parseInt(schedule.hour.split(" : ")[0])
+
 
   if (hour < 8 || hour >= 22) {
     throw new AppError("Schedule during business hours",400);
