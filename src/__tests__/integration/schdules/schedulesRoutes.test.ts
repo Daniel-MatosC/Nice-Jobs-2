@@ -331,7 +331,7 @@ describe("/schedules", () => {
       expect(response.body.message).toBe("Schedule not found");
       expect(response.status).toBe(404);
   });
-  test("GET /schedules/:id - Must be able to list schedules by service id ", async () => {
+  test("GET /schedules/services/:id - Must be able to list schedules by service id ", async () => {
     const adminLoginResponse = await request(app)
       .post("/login")
       .send(mockedPremiunLoginTrue);
