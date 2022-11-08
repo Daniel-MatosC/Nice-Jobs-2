@@ -28,7 +28,7 @@ const createServiceService = async ({
   });
 
   if (!userId) {
-    throw new AppError("User not found");
+    throw new AppError("User not found", 404);
   }
 
   if (userId.isOffering === false) {
@@ -40,7 +40,7 @@ const createServiceService = async ({
   });
 
   if (!categoryId) {
-    throw new AppError("Category not found",404);
+    throw new AppError("Category not found", 404);
   }
 
   const serviceDescription: IDescription = descriptionRepository.create({
