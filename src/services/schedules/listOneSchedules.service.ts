@@ -20,7 +20,6 @@ const listOneScheduleService = async (id: string) => {
 
     const { password, createdAt, updatedAt,isActive, isPremium,isOffering, ...user } = schedule.user;
     const { user: userServices, ...service } = schedule.services;
-    //retorna de schedule.services.user apenas name, email e id
     const { name, email, id: userId } = userServices;
     
     const scheduleResponse = {

@@ -5,7 +5,7 @@ import { IUserUpdate } from "../../interfaces/users";
 import { AppError } from "../../errors/appError";
 
 const updateUserController = async (req: Request, res: Response) => {
-  //verify if isActive includes in req.body via includes method
+  
   if (Object.keys(req.body).includes("isActive")) {
     throw new AppError( "You can't update this field", 401);
   }

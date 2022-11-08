@@ -1,4 +1,3 @@
-//router session
 import { Router } from "express";
 import createSessionController from "../controllers/sessions/createSession.controller";
 

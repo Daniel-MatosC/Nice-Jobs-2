@@ -23,7 +23,6 @@ const listCategoriesService = async (id: IServicesOnCategory) => {
   const service = servicesAll.filter((service) => {
     return service.category.id === category.id;
   });
-  //return service property user without password
 
   return service.map((service) => {
     const { password, ...user } = service.user;

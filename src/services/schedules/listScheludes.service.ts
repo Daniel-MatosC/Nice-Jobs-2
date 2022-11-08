@@ -19,6 +19,4 @@ const listSchedulesService = async () => {
     });
 };
 
-//return schedules;
-
 export default listSchedulesService;
