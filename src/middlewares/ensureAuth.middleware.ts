@@ -27,6 +27,7 @@ export const ensureAuth = (req: Request, res: Response, next: NextFunction) => {
         isPremium: decoded.isPremium,
         isOffering: decoded.isOffering,
       };
+      console.log(req.user);
       return next();
     }
   );
