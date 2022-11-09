@@ -9,7 +9,7 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "cross-env NODE_ENV=test SECRET_KEY=12345 jest --verbose",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/src/server.js"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
