@@ -103,7 +103,30 @@ describe("/users", () => {
         expect(response.body).not.toHaveProperty("password")
         expect(response.body).toHaveLength(3) 
     })
-    test("GET /users -  should not be able to list users without authentication",async () => {
+    test("GET /users/profile - Must be able to list all users",async () => {
+        const adminLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
+        const response = await request(app).get('/users/profile').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+      
+        expect(response.body).toHaveProperty("message")
+        expect(response.body.message).toEqual("Dados do usuário")
+        expect(response.body.user).toHaveProperty("id")
+        expect(response.body.user).toHaveProperty("createdAt")
+        expect(response.body.user).toHaveProperty("updatedAt")
+        expect(response.body.user).toHaveProperty("name")
+        expect(response.body.user).toHaveProperty("email")
+        expect(response.body.user).toHaveProperty("isActive")
+        expect(response.body.user).toHaveProperty("isPremium")
+        expect(response.body.user).toHaveProperty("isOffering")
+
+    })
+
+    test("GET /users/profile -  should not be able to list users without authentication",async () => {
+        const response = await request(app).get('/users')
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401)   
+    })
+    test("GET /users/profile -  should not be able to list users without authentication",async () => {
         const response = await request(app).get('/users')
 
         expect(response.body).toHaveProperty("message")
