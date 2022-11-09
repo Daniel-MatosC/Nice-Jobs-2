@@ -5,14 +5,12 @@ import deleteUserController from "../controllers/users/deleteUser.controller";
 import listUsersController from "../controllers/users/listUsers.controller";
 import updateUserController from "../controllers/users/updateUser.controller";
 import profileUserController from '../controllers/users/profileUser.controller';
-import profileUpdateUserController from '../controllers/users/updateUserProfile.controller';
 
 const userRoutes = Router();
 
 userRoutes.post("", createUserController);
 userRoutes.get("",ensureAuth, listUsersController);
 userRoutes.get("/profile",ensureAuth, profileUserController);
-userRoutes.patch("/profile",ensureAuth, profileUpdateUserController);
 userRoutes.patch("/:id",ensureAuth, updateUserController);
 userRoutes.delete("/:id",ensureAuth, deleteUserController);
 
