@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { User } from './../../../entities/user.entity';
 import { Services } from './../../../entities/services.entity';
 import {
@@ -307,6 +308,43 @@ describe("/schedules", () => {
 
     expect(response.status).toBe(200);
   });
+
+  test("PATCH /schedules/:id - Must be able to update a schedule is done true", async () => {
+    const adminLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedPremiunLoginTrue);
+
+    const schedules = await request(app)
+      .get("/schedules/")
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+    const response = await request(app)
+      .patch(`/schedules/${schedules.body.schedules[0].id}`)
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+      .send({ isDone: true });
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.status).toBe(200);
+  });
+
+  test("PATCH /schedules/:id - should not be able to update a schedule without authentication", async () => {
+  
+    const response = await request(app)
+      .patch("/schedules/fsafasaaa")
+
+    console.log(response.body);
+      
+
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.status).toBe(401);
+
+
+  });
+    
+
+    
+
   test("GET /schedules/:id -should not be able to list one schedule by id invalid", async () => {
     const adminLoginResponse = await request(app)
       .post("/login")

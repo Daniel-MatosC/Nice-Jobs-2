@@ -126,18 +126,20 @@ describe("/users", () => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)   
     })
-    test("GET /users/profile -  should not be able to list users without authentication",async () => {
-        const response = await request(app).get('/users')
 
-        expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(401)   
-    })
     test("GET /users -  should be able to list users not being Premium",async () => {
         const userLoginResponse = await request(app).post("/login").send(mockedUserNotPremium);
         const response = await request(app).get('/users').set("Authorization", `Bearer ${userLoginResponse.body.token}`)
         expect(response.body).not.toHaveProperty("password")
         expect(response.body).toHaveLength(3) 
         expect(response.status).toBe(200) 
+    })
+
+    test("DELETE /users/profile -  should not be able to  to soft delete user  profile without authentication",async () => {
+        const response = await request(app).delete('/users/profile')
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401)   
     })
 
     test("DELETE /users/:id -  should not be able to delete user without authentication",async () => {
@@ -170,6 +172,52 @@ describe("/users", () => {
         const response = await request(app).delete(`/users/${UserTobeDeleted.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
+    })
+    test("PATCH /users/profile -  should not be able to update user profile without authentication",async () => {
+        const response = await request(app).patch('/users/profile')
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401)   
+    })
+    test("PATCH /users/profile -  should be able to update user profile",async () => {
+        const userLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
+        const newValue = {
+            name: "Teste",
+        }
+        const response = await request(app).patch('/users/profile').set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(newValue)
+
+        console.log(response.body)
+
+        expect(response.body).toHaveProperty("id")
+        expect(response.body).toHaveProperty("createdAt")
+        expect(response.body).toHaveProperty("updatedAt")
+        expect(response.body).toHaveProperty("name")
+        expect(response.body.name).toEqual("Teste")
+        expect(response.body).toHaveProperty("email")
+        expect(response.body).toHaveProperty("isActive")
+        expect(response.body).toHaveProperty("isPremium")
+        expect(response.body).toHaveProperty("isOffering")
+    })
+    test("PATCH /users/profile -  should not be able to update user profile with invalid email",async () => {
+        const userLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
+        const newValue = {
+            email: "teste",
+        }
+        const response = await request(app).patch('/users/profile').set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(newValue)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+    })
+
+    test("PATCH /users/profile -  should not be able to update user profile with invalid password",async () => {
+        const userLoginResponse = await request(app).post("/login").send(mockedPremiunLogin);
+        const newValue = {
+            password: "teste",
+        }
+        const response = await request(app).patch('/users/profile').set("Authorization", `Bearer ${userLoginResponse.body.token}`).send(newValue)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
     })
 
     test("PATCH /users/:id -  should not be able to update user without authentication",async () => {
