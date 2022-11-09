@@ -97,8 +97,6 @@ describe("/schedules", () => {
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
       .send(mockedScheduledateEmpty);
 
-    console.log(response.body)
-
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(400);
   });
@@ -118,8 +116,6 @@ describe("/schedules", () => {
       .post("/schedules")
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
       .send(mockedScheduleHourEmpty);
-
-    console.log(response.body)
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(400);
@@ -141,8 +137,6 @@ describe("/schedules", () => {
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
       .send(mockedScheduledateInvalid);
 
-    console.log(response.body)
-
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(400);
   });
@@ -162,8 +156,6 @@ describe("/schedules", () => {
       .post("/schedules")
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
       .send(mockedScheduleHourInvalid);
-
-    console.log(response.body)
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(400);
@@ -236,7 +228,7 @@ describe("/schedules", () => {
       .get("/users")
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`);
     const services = await request(app).get("/services");
-   
+
     mockedScheduleInvalidHourMore22.serviceId = services.body[0].id;
     mockedScheduleInvalidHourMore22.userId = users.body[1].id;
     const response = await request(app)
