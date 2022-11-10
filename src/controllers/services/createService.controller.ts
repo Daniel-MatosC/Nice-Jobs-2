@@ -4,7 +4,7 @@ import createServiceService from "../../services/services/createService.service"
 const createServiceController = async (req: Request, res: Response) => {
   const { serviceName, isActive, description, category, user } =
     req.body;
-    const req_user = req.user.isOffering!;
+    const req_user = req.user;
 
   const newService = await createServiceService({
     serviceName,
