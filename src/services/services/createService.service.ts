@@ -1,9 +1,7 @@
 import AppDataSource from "../../data-source";
-
 import { Services } from "../../entities/services.entity";
 import { Description } from "../../entities/description.entity";
 import { Categories } from "../../entities/categories.entity";
-
 import { IServiceRequest, IDescription } from "../../interfaces/services";
 import { AppError } from "../../errors/appError";
 import { User } from "../../entities/user.entity";
@@ -53,13 +51,13 @@ const createServiceService = async ({
 
   const service = serviceRepository.create({
     serviceName,
-    serviceOwner: userId.name,
+    serviceOwner: userId.name ? userId.name : req_user.name,
     isActive,
     description: serviceDescription,
     category: categoryId,
     createdAt: new Date(),
     updatedAt: new Date(),
-    user: userId,
+    user: userId ? userId : req_user.id,
   });
 
   await serviceRepository.save(service);
