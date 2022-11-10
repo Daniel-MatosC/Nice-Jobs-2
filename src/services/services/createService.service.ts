@@ -21,11 +21,13 @@ const createServiceService = async ({
   const categoryRepository = AppDataSource.getRepository(Categories);
 
   const userRepository = AppDataSource.getRepository(User);
+  
+  const id = user || req_user.userId;
 
   const userId = await userRepository.findOne({
-    where: { id: user },
+    where: { id : id},
   });
-
+  
   if (!userId) {
     throw new AppError("User not found", 404);
   }
