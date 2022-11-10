@@ -12,7 +12,7 @@ Este é o back end da aplicação Nice Jobs - uma plataforma que torna possível
 
 ## **Endpoints**
 
-A API tem um total de 16 endpoints, sendo em volta principalmente do usuário (dev) - podendo cadastrar seu perfil e serviços. <br/>
+A API tem um total de 22 endpoints, sendo em volta principalmente do usuário (dev) - podendo cadastrar seu perfil e serviços. <br/>
 
 O url base da API é https://nice-jobs.herokuapp.com/
 
@@ -124,7 +124,7 @@ Rotas que necessitam de autorização deve ser informado no cabeçalho da requis
 
 <h2 align ='center'> Editar usuários </h2>
 
-Por meio desse end-point pode ser editado um usuário específico, utilizando o id do usuário no lugar de "/:id", dessa forma:
+Por meio desse end-point acessivel apenas por um administrador pode ser editado um usuário específico, utilizando o id do usuário no lugar de "/:id", dessa forma:
 
 `PATCH /users/:id - FORMATO DA REQUISIÇÃO`
 
@@ -194,9 +194,75 @@ Id incorreto:
 
 ##
 
+<h2 align ='center'> Atualizar usuários </h2>
+
+Por meio desse end-point acessivel apenas por um admnistrador pode ser realizado uma busca por todos os usuarios, dessa forma:
+
+`PATCH /users/:id - FORMATO DA REQUISIÇÃO`
+
+```json
+{
+	"name": "Matheus Gomes",
+	"email": "matheus@kenzie.com",
+	"isPremium": true,
+	"isOffering": false,
+	"password": "Aaaaaaa123!"
+}
+```
+
+`PATCH /users/:id - STATUS 200` 
+
+```json
+{
+    "id": "ecd98406-a0af-4ccc-9d43-9aa735f48b04",
+    "createdAt": "2022-11-05T13:32:37.012Z",
+    "updatedAt": "2022-11-05T13:32:37.012Z",
+    "name": "Hassan",
+    "email": "hassan@kenzie.com",
+    "isPremium": false,
+    "isOffering": true,
+    "isActive": true
+}
+```
+
+<h2 align ='center'> Buscar usuários </h2>
+
+Por meio desse end-point acessivel apenas por um admnistrador pode ser realizado uma busca por todos os usuários cadastrados na plataforma, dessa forma:
+
+```
+Não é necessário um corpo da requisição.
+```
+
+`GET /users - STATUS 200`
+
+```json
+[
+    {
+        "id": "ecd98406-a0af-4ccc-9d43-9aa735f48b04",
+        "createdAt": "2022-11-05T13:32:37.012Z",
+        "updatedAt": "2022-11-05T13:32:37.012Z",
+        "name": "Hassan",
+        "email": "hassan@kenzie.com",
+        "isPremium": false,
+        "isOffering": true,
+        "isActive": true
+    },
+    {
+        "id": "ecd98406-a0af-4ccc-9d43-9aa735f48b04",
+        "createdAt": "2022-11-05T13:32:37.012Z",
+        "updatedAt": "2022-11-05T13:32:37.012Z",
+        "name": "Daniel",
+        "email": "daniel@kenzie.com",
+        "isPremium": false,
+        "isOffering": true,
+        "isActive": true
+    },
+    ...
+]
+```
 <h2 align ='center'> Deletar usuários </h2>
 
-Por meio desse end-point pode ser realizado um soft delete de um usuário específico, utilizando o id do usuário no lugar de "/:id", dessa forma:
+Por meio desse end-point acessivel apenas por um admnistrador pode ser realizado um soft delete de um usuário específico, utilizando o id do usuário no lugar de "/:id", dessa forma:
 
 `DELETE /users/:id - STATUS 204`
 
@@ -232,6 +298,75 @@ O usuario está inativo (isActive: false):
 
 ```json
 "Inactive user"
+```
+
+##
+
+O usuário poderá editar, atualizar e deletar apenas o proprio user se não for um admnistrador, utilizando a rota profile.
+
+<h2 align ='center'> Atualizar usuário </h2>
+
+Por meio desse end-point pode ser realizado uma atualização apenas do proprio usuário logado, dessa forma:
+
+`PATCH /profile FORMATO DA REQUISIÇÃO`
+
+```json
+{
+	"name": "Matheus Gomes",
+	"email": "matheus@kenzie.com",
+	"isPremium": true,
+	"isOffering": false,
+	"password": "Aaaaaaa123!"
+}
+```
+
+`PATCH /profile - STATUS 200` 
+
+```json
+{
+    "id": "ecd98406-a0af-4ccc-9d43-9aa735f48b04",
+    "createdAt": "2022-11-05T13:32:37.012Z",
+    "updatedAt": "2022-11-05T13:32:37.012Z",
+    "name": "Hassan",
+    "email": "hassan@kenzie.com",
+    "isPremium": false,
+    "isOffering": true,
+    "isActive": true
+}
+```
+
+<h2 align ='center'> Buscar usuário </h2>
+
+Por meio deste end-point é possivel realizar uma busca pelos dados do porprio usuário logado, dessa forma:
+
+```
+Não é necessário um corpo da requisição.
+```
+
+`GET /profile - STATUS 200`
+
+```json
+{
+	"message": "Dados do usuário",
+	"user": {
+		"id": "44fd4040-cda8-40fb-b419-d4c39b6db09f",
+		"createdAt": "2022-11-09T22:59:57.680Z",
+		"updatedAt": "2022-11-09T22:59:57.680Z",
+		"name": "Daniel Matos",
+		"email": "danimatos@kenzie.com",
+		"isPremium": false,
+		"isActive": true,
+		"isOffering": true
+}
+```
+<h2 align ='center'> Deletar usuários </h2>
+
+Por meio desse end-point pode ser realizado um soft delete apenas do usuário logado, dessa forma:
+
+`DELETE /users - STATUS 204`
+
+```
+Não é necessário um corpo da requisição.
 ```
 
 ##
@@ -316,6 +451,8 @@ Por meio desse end-point pode ser realizado uma busca por serviços que pertence
 Não é necessário um corpo da requisição.
 ```
 
+##
+
 <h2 align ='center'> Buscar serviços (mostrando o usuário dono) </h2>
 
 Podemos utilizar o id para pegar os usuário que cadastrou o serviço junto com o serviço cadastrado, dessa forma:
@@ -381,7 +518,7 @@ Podemos utilizar sem o id para pegar apenas os serviços cadastrados e o seu ofe
 		}
 ]
 ```
-<h2 align ='center'> Cadastrar serviços do seu perfil </h2>
+<h2 align ='center'> Cadastrar serviços no seu perfil </h2>
 
 Para cadastrar um serviço devemos utilizar as informações contidas no formato da requisição e informar sempre de qual usuário e categoria o serviço pertence, com o user e categoryId, dessa forma:
 
@@ -497,6 +634,8 @@ Por meio desse end-point pode ser removido (deletado) um serviço específico, u
 ```
 Não é necessário um corpo da requisição.
 ```
+
+##
 
 <h2 align ='center'> Cria uma solicitação de serviço </h2>
 
@@ -703,6 +842,23 @@ este end-point busca todos os agendamentos realizados por todos os usuarios em t
 			}
 		},
 		...
+}
+```
+
+<h2 align ='center'> Atualizar schedules (agendamento) </h2>
+
+Você pode atualizar um agendamento para concluido mudando o /:id para o id do agendamento, dessa forma:
+
+```
+Não é necessário um corpo da requisição.
+```
+
+`PATCH schedules/:id/services - FORMATO DA RESPOSTA - STATUS 200`
+
+```json
+{
+    "message": "Schedules updated"
+}	
 ```
 
 Feito by Daniel-MatosC (SM) :wave:
