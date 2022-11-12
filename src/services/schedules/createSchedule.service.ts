@@ -23,6 +23,12 @@ const createScheduleService = async (
   if(schedule.date.length>12){
     throw new AppError("Date is invalid");
   }
+  const dateFormat = new Date(schedule.date).getDay()
+  console.log( new Date(schedule.date).toDateString());
+  
+  if(dateFormat == 0 || dateFormat == 6){
+    throw new AppError(`${new Date(schedule.date).toDateString()} - Bussiness is closed on weekends`);
+  }
 
   if(schedule.hour == ""){
     throw new AppError("Hour is required");

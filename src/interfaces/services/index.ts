@@ -7,7 +7,7 @@ export interface IServiceRequest {
   description: IDescription;
   category: string;
   user: string;
-  req_user?: boolean;
+  req_user?: any;
 }
 
 export interface IService {
